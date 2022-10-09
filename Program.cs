@@ -38,15 +38,15 @@ static void Main(string[] args)
         static bool IsGameOver(List<string> boardlist)
         {
             bool isGameOver = false;
-            if (IsWinner(boardlist, "x") || IsWinner(boardlist, "o") || IsTie(boardlist))
+            if (IsWin(boardlist, "x") || IsWin(boardlist, "o") || IsTie(boardlist))
             {
                 isGameOver = true;
             }
             return isGameOver;
         } 
-        static bool IsWinner(List<string> boardlist, string player)
+        static bool IsWin(List<string> boardlist, string player)
         {
-            bool isWinner = false;
+            bool isWin = false;
             if ((boardlist[0] == player && boardlist[1] == player && boardlist[2] == player)
                 || (boardlist[1] == player && boardlist[4] == player && boardlist[7] == player)
                 || (boardlist[2] == player && boardlist[5] == player && boardlist[8] == player)
@@ -57,22 +57,22 @@ static void Main(string[] args)
                 || (boardlist[0] == player && boardlist[3] == player && boardlist[6] == player)
                 )
             {
-                isWinner = true;
+                isWin = true;
             }
-            return isWinner; 
+            return isWin; 
         }
         static bool IsTie(List<string> boardlist)
         {
-            bool foundDigit = false;
+            bool findDig = false;
             foreach (string value in boardlist)
             {
                 if (char.IsDigit(value[0]))
                 {
-                    foundDigit = true;
+                    findDig = true;
                     break;
                 }
             }
-            return !foundDigit;
+            return !findDig;
         }
         static string NextPerson(string currentPlayer)
         {
@@ -85,17 +85,17 @@ static void Main(string[] args)
 
             return nextPlayer;
         }
-        static int GetMove(string currentPlayer)
-        {
-            Console.Write($"{currentPlayer}'s turn to choose a square (1-9): ");
-            string move_string = Console.ReadLine();
-            int choice = int.Parse(move_string);
-            return choice;
-        }
         static void MakeMove(List<string> boardlist, int choice, string currentPlayer)
         {
             int index = choice - 1;
             boardlist[index] = currentPlayer;
+        }
+        static int GetMove(string currentPlayer)
+        {
+            Console.Write($"{currentPlayer} turn to choose a square: ");
+            string move_string = Console.ReadLine();
+            int choice = int.Parse(move_string);
+            return choice;
         }
     } 
 }
